@@ -164,16 +164,22 @@ class SwitchingColumnsArea extends PureComponent {
 
     if (signedIn) {
       if (mobile) {
-        redirect = <Redirect from='/' to='/home' exact />;
+        redirect = <Redirect from='/' to='/public/local' exact />;
       } else {
         redirect = <Redirect from='/' to='/getting-started' exact />;
       }
     } else if (singleUserMode && owner && initialState?.accounts[owner]) {
       redirect = <Redirect from='/' to={`/@${initialState.accounts[owner].username}`} exact />;
-    } else if (trendsEnabled && trendsAsLanding) {
-      redirect = <Redirect from='/' to='/explore' exact />;
     } else {
       redirect = <Redirect from='/' to='/about' exact />;
+    }
+
+    let explore;
+
+    if (signedIn) {
+      explore = <WrappedRoute path={['/explore', '/search']} component={Explore} content={children} />
+    } else {
+      explore = <Redirect from="/explore" to="/about" />
     }
 
     return (
@@ -189,9 +195,9 @@ class SwitchingColumnsArea extends PureComponent {
           <WrappedRoute path={['/home', '/timelines/home']} component={HomeTimeline} content={children} />
           <Redirect from='/timelines/public' to='/public' exact />
           <Redirect from='/timelines/public/local' to='/public/local' exact />
-          <WrappedRoute path='/public' exact component={Firehose} componentParams={{ feedType: 'public' }} content={children} />
+          {/* <WrappedRoute path='/public' exact component={Firehose} componentParams={{ feedType: 'public' }} content={children} /> */}
           <WrappedRoute path='/public/local' exact component={Firehose} componentParams={{ feedType: 'community' }} content={children} />
-          <WrappedRoute path='/public/remote' exact component={Firehose} componentParams={{ feedType: 'public:remote' }} content={children} />
+          {/* <WrappedRoute path='/public/remote' exact component={Firehose} componentParams={{ feedType: 'public:remote' }} content={children} /> */}
           <WrappedRoute path={['/conversations', '/timelines/direct']} component={DirectTimeline} content={children} />
           <WrappedRoute path='/tags/:id' component={HashtagTimeline} content={children} />
           <WrappedRoute path='/lists/:id' component={ListTimeline} content={children} />
@@ -203,7 +209,9 @@ class SwitchingColumnsArea extends PureComponent {
 
           <WrappedRoute path='/start' exact component={Onboarding} content={children} />
           <WrappedRoute path='/directory' component={Directory} content={children} />
-          <WrappedRoute path={['/explore', '/search']} component={Explore} content={children} />
+
+          {explore}
+
           <WrappedRoute path={['/publish', '/statuses/new']} component={Compose} content={children} />
 
           <WrappedRoute path={['/@:acct', '/accounts/:id']} exact component={AccountTimeline} content={children} />

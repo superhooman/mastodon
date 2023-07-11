@@ -20,7 +20,7 @@ import SettingToggle from '../notifications/components/setting_toggle';
 import StatusListContainer from '../ui/containers/status_list_container';
 
 const messages = defineMessages({
-  title: { id: 'column.firehose', defaultMessage: 'Live feeds' },
+  title: { id: 'column.home', defaultMessage: 'Home' },
 });
 
 // TODO: use a proper React context later on
@@ -126,24 +126,6 @@ const Firehose = ({ feedType, multiColumn }) => {
     return () => disconnect?.();
   }, [dispatch, signedIn, feedType, onlyMedia]);
 
-  const prependBanner = feedType === 'community' ? (
-    <DismissableBanner id='community_timeline'>
-      <FormattedMessage
-        id='dismissable_banner.community_timeline'
-        defaultMessage='These are the most recent public posts from people whose accounts are hosted by {domain}.'
-        values={{ domain }}
-      />
-    </DismissableBanner>
-  ) : (
-    <DismissableBanner id='public_timeline'>
-      <FormattedMessage
-        id='dismissable_banner.public_timeline'
-        defaultMessage='These are the most recent public posts from people on the social web that people on {domain} follow.'
-        values={{ domain }}
-      />
-    </DismissableBanner>
-  );
-
   const emptyMessage = feedType === 'community' ? (
     <FormattedMessage
       id='empty_column.community'
@@ -170,22 +152,8 @@ const Firehose = ({ feedType, multiColumn }) => {
       </ColumnHeader>
 
       <div className='scrollable scrollable--flex'>
-        <div className='account__section-headline'>
-          <NavLink exact to='/public/local'>
-            <FormattedMessage tagName='div' id='firehose.local' defaultMessage='This server' />
-          </NavLink>
-
-          <NavLink exact to='/public/remote'>
-            <FormattedMessage tagName='div' id='firehose.remote' defaultMessage='Other servers' />
-          </NavLink>
-
-          <NavLink exact to='/public'>
-            <FormattedMessage tagName='div' id='firehose.all' defaultMessage='All' />
-          </NavLink>
-        </div>
-
         <StatusListContainer
-          prepend={prependBanner}
+          prepend={<></>}
           timelineId={`${feedType}${onlyMedia ? ':media' : ''}`}
           onLoadMore={handleLoadMore}
           trackScroll

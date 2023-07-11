@@ -4,7 +4,7 @@
     text-decoration: none;
     color: inherit;
     overflow: hidden;
-    border-radius: 4px;
+    border-radius: 6px;
 
     &:hover,
     &:active,
@@ -52,7 +52,7 @@
         height: 100%;
         display: block;
         margin: 0;
-        border-radius: 4px;
+        border-radius: 6px;
         background: darken($ui-base-color, 8%);
         object-fit: cover;
       }
@@ -173,12 +173,12 @@
   justify-content: center;
   align-items: center;
   cursor: default;
-  border-radius: 4px;
+  border-radius: 6px;
   padding: 20px;
   min-height: 30vh;
 
   &--under-tabs {
-    border-radius: 0 0 4px 4px;
+    border-radius: 0 0 6px 6px;
   }
 
   &--flexible {

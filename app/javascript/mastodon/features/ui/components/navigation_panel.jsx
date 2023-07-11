@@ -17,10 +17,10 @@ import NotificationsCounterIcon from './notifications_counter_icon';
 import SignInBanner from './sign_in_banner';
 
 const messages = defineMessages({
-  home: { id: 'tabs_bar.home', defaultMessage: 'Home' },
+  home: { id: 'account.following', defaultMessage: 'Following' },
   notifications: { id: 'tabs_bar.notifications', defaultMessage: 'Notifications' },
   explore: { id: 'explore.title', defaultMessage: 'Explore' },
-  firehose: { id: 'column.firehose', defaultMessage: 'Live feeds' },
+  firehose: { id: 'column.home', defaultMessage: 'Home' },
   direct: { id: 'navigation_bar.direct', defaultMessage: 'Private mentions' },
   favourites: { id: 'navigation_bar.favourites', defaultMessage: 'Favourites' },
   bookmarks: { id: 'navigation_bar.bookmarks', defaultMessage: 'Bookmarks' },
@@ -57,9 +57,13 @@ class NavigationPanel extends Component {
           <hr />
         </div>
 
+        {(signedIn || timelinePreview) && (
+          <ColumnLink transparent to='/public/local' isActive={this.isFirehoseActive} icon='globe' text={intl.formatMessage(messages.firehose)} />
+        )}
+
         {signedIn && (
           <>
-            <ColumnLink transparent to='/home' icon='home' text={intl.formatMessage(messages.home)} />
+            <ColumnLink transparent to='/home' icon='users' text={intl.formatMessage(messages.home)} />
             <ColumnLink transparent to='/notifications' icon={<NotificationsCounterIcon className='column-link__icon' />} text={intl.formatMessage(messages.notifications)} />
             <FollowRequestsColumnLink />
           </>
@@ -69,10 +73,6 @@ class NavigationPanel extends Component {
           <ColumnLink transparent to='/explore' icon='hashtag' text={intl.formatMessage(messages.explore)} />
         ) : (
           <ColumnLink transparent to='/search' icon='search' text={intl.formatMessage(messages.search)} />
-        )}
-
-        {(signedIn || timelinePreview) && (
-          <ColumnLink transparent to='/public/local' isActive={this.isFirehoseActive} icon='globe' text={intl.formatMessage(messages.firehose)} />
         )}
 
         {!signedIn && (
