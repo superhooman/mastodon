@@ -48,20 +48,12 @@ class PrivacyPolicy < ActiveModelSerializers::Model
 
     When you authorize an application to use your account, depending on the scope of permissions you approve, it may access your public profile information, your following list, your followers, your lists, all your posts, and your favourites. Applications can never access your e-mail address or password.
 
-    # Site usage by children
-
-    If this server is in the EU or the EEA: Our site, products and services are all directed to people who are at least 16 years old. If you are under the age of 16, per the requirements of the GDPR (General Data Protection Regulation) do not use this site.
-
-    If this server is in the USA: Our site, products and services are all directed to people who are at least 13 years old. If you are under the age of 13, per the requirements of COPPA (Children's Online Privacy Protection Act) do not use this site.
-
-    Law requirements can be different if this server is in another jurisdiction.
-
     ___
 
     This document is CC-BY-SA. Originally adapted from the [Discourse privacy policy](https://github.com/discourse/discourse).
   TXT
 
-  DEFAULT_UPDATED_AT = DateTime.new(2022, 10, 7).freeze
+  DEFAULT_UPDATED_AT = DateTime.new(2023, 7, 11).freeze
 
   attributes :updated_at, :text
 
