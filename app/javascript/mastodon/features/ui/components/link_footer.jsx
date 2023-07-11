@@ -54,7 +54,6 @@ class LinkFooter extends PureComponent {
   render () {
     const { signedIn, permissions } = this.context.identity;
 
-    const canInvite = signedIn && ((permissions & PERMISSION_INVITE_USERS) === PERMISSION_INVITE_USERS);
     const canProfileDirectory = profileDirectory;
 
     const DividingCircle = <span aria-hidden>{' · '}</span>;
@@ -71,12 +70,6 @@ class LinkFooter extends PureComponent {
               <a href={statusPageUrl} target='_blank' rel='noopener'><FormattedMessage id='footer.status' defaultMessage='Status' /></a>
             </>
           )}
-          {canInvite && (
-            <>
-              {DividingCircle}
-              <a href='/invites' target='_blank'><FormattedMessage id='footer.invite' defaultMessage='Invite people' /></a>
-            </>
-          )}
           {canProfileDirectory && (
             <>
               {DividingCircle}
@@ -88,7 +81,7 @@ class LinkFooter extends PureComponent {
         </p>
 
         <p>
-          <strong>Mastodon</strong>:
+          <strong>Mastodon (modified)</strong>:
           {' '}
           <a href='https://joinmastodon.org' target='_blank'><FormattedMessage id='footer.about' defaultMessage='About' /></a>
           {DividingCircle}

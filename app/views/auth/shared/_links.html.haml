@@ -4,8 +4,5 @@
   - else
     %li= link_to t('privacy_policy.title'), terms_path
 
-  - if controller_name != 'confirmations' && (!user_signed_in? || !current_user.confirmed? || current_user.unconfirmed_email.present?)
-    %li= link_to t('auth.didnt_get_confirmation'), new_user_confirmation_path
-
   - if user_signed_in?
     %li= link_to t('auth.logout'), destroy_user_session_path, data: { method: :delete }
