@@ -135,11 +135,7 @@ class InteractionModal extends PureComponent {
         </a>
       );
     } else {
-      signupButton = (
-        <button className='button button--block button-tertiary' onClick={this.handleSignupClick}>
-          <FormattedMessage id='sign_in_banner.create_account' defaultMessage='Create account' />
-        </button>
-      );
+      signupButton = <></>;
     }
 
     return (

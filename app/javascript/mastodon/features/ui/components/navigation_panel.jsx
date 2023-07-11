@@ -46,7 +46,7 @@ class NavigationPanel extends Component {
     return match || location.pathname.startsWith('/public');
   };
 
-  render () {
+  render() {
     const { intl } = this.props;
     const { signedIn, disabledAccountId } = this.context.identity;
 
@@ -57,44 +57,46 @@ class NavigationPanel extends Component {
           <hr />
         </div>
 
-        {(signedIn || timelinePreview) && (
-          <ColumnLink transparent to='/public/local' isActive={this.isFirehoseActive} icon='globe' text={intl.formatMessage(messages.firehose)} />
-        )}
-
-        {signedIn && (
+        {signedIn ? (
           <>
-            <ColumnLink transparent to='/home' icon='users' text={intl.formatMessage(messages.home)} />
-            <ColumnLink transparent to='/notifications' icon={<NotificationsCounterIcon className='column-link__icon' />} text={intl.formatMessage(messages.notifications)} />
-            <FollowRequestsColumnLink />
-          </>
-        )}
+            {(signedIn || timelinePreview) && (
+              <ColumnLink transparent to='/public/local' isActive={this.isFirehoseActive} icon='globe' text={intl.formatMessage(messages.firehose)} />
+            )}
 
-        {trendsEnabled ? (
-          <ColumnLink transparent to='/explore' icon='hashtag' text={intl.formatMessage(messages.explore)} />
+            {signedIn && (
+              <>
+                <ColumnLink transparent to='/home' icon='users' text={intl.formatMessage(messages.home)} />
+                <ColumnLink transparent to='/notifications' icon={<NotificationsCounterIcon className='column-link__icon' />} text={intl.formatMessage(messages.notifications)} />
+                <FollowRequestsColumnLink />
+              </>
+            )}
+
+            {trendsEnabled ? (
+              <ColumnLink transparent to='/explore' icon='hashtag' text={intl.formatMessage(messages.explore)} />
+            ) : (
+              <ColumnLink transparent to='/search' icon='search' text={intl.formatMessage(messages.search)} />
+            )}
+
+            {signedIn && (
+              <>
+                <ColumnLink transparent to='/conversations' icon='at' text={intl.formatMessage(messages.direct)} />
+                <ColumnLink transparent to='/bookmarks' icon='bookmark' text={intl.formatMessage(messages.bookmarks)} />
+                <ColumnLink transparent to='/favourites' icon='star' text={intl.formatMessage(messages.favourites)} />
+                <ColumnLink transparent to='/lists' icon='list-ul' text={intl.formatMessage(messages.lists)} />
+
+                <ListPanel />
+
+                <hr />
+
+                <ColumnLink transparent href='/settings/preferences' icon='cog' text={intl.formatMessage(messages.preferences)} />
+              </>
+            )}
+          </>
         ) : (
-          <ColumnLink transparent to='/search' icon='search' text={intl.formatMessage(messages.search)} />
-        )}
-
-        {!signedIn && (
           <div className='navigation-panel__sign-in-banner'>
-            <hr />
-            { disabledAccountId ? <DisabledAccountBanner /> : <SignInBanner /> }
+            {signedIn ? <hr /> : <></>}
+            {disabledAccountId ? <DisabledAccountBanner /> : <SignInBanner />}
           </div>
-        )}
-
-        {signedIn && (
-          <>
-            <ColumnLink transparent to='/conversations' icon='at' text={intl.formatMessage(messages.direct)} />
-            <ColumnLink transparent to='/bookmarks' icon='bookmark' text={intl.formatMessage(messages.bookmarks)} />
-            <ColumnLink transparent to='/favourites' icon='star' text={intl.formatMessage(messages.favourites)} />
-            <ColumnLink transparent to='/lists' icon='list-ul' text={intl.formatMessage(messages.lists)} />
-
-            <ListPanel />
-
-            <hr />
-
-            <ColumnLink transparent href='/settings/preferences' icon='cog' text={intl.formatMessage(messages.preferences)} />
-          </>
         )}
 
         <div className='navigation-panel__legal'>

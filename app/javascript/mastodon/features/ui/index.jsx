@@ -129,7 +129,7 @@ class SwitchingColumnsArea extends PureComponent {
     mobile: PropTypes.bool,
   };
 
-  UNSAFE_componentWillMount () {
+  UNSAFE_componentWillMount() {
     if (this.props.mobile) {
       document.body.classList.toggle('layout-single-column', true);
       document.body.classList.toggle('layout-multiple-columns', false);
@@ -139,7 +139,7 @@ class SwitchingColumnsArea extends PureComponent {
     }
   }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate(prevProps) {
     if (![this.props.location.pathname, '/'].includes(prevProps.location.pathname)) {
       this.node.handleChildrenContentChange();
     }
@@ -156,7 +156,7 @@ class SwitchingColumnsArea extends PureComponent {
     }
   };
 
-  render () {
+  render() {
     const { children, mobile } = this.props;
     const { signedIn } = this.context.identity;
 
@@ -214,30 +214,31 @@ class SwitchingColumnsArea extends PureComponent {
 
           <WrappedRoute path={['/publish', '/statuses/new']} component={Compose} content={children} />
 
-          <WrappedRoute path={['/@:acct', '/accounts/:id']} exact component={AccountTimeline} content={children} />
-          <WrappedRoute path='/@:acct/tagged/:tagged?' exact component={AccountTimeline} content={children} />
-          <WrappedRoute path={['/@:acct/with_replies', '/accounts/:id/with_replies']} component={AccountTimeline} content={children} componentParams={{ withReplies: true }} />
-          <WrappedRoute path={['/accounts/:id/followers', '/users/:acct/followers', '/@:acct/followers']} component={Followers} content={children} />
-          <WrappedRoute path={['/accounts/:id/following', '/users/:acct/following', '/@:acct/following']} component={Following} content={children} />
-          <WrappedRoute path={['/@:acct/media', '/accounts/:id/media']} component={AccountGallery} content={children} />
-          <WrappedRoute path='/@:acct/:statusId' exact component={Status} content={children} />
-          <WrappedRoute path='/@:acct/:statusId/reblogs' component={Reblogs} content={children} />
-          <WrappedRoute path='/@:acct/:statusId/favourites' component={Favourites} content={children} />
+          {signedIn ? (<>
+            <WrappedRoute path={['/@:acct', '/accounts/:id']} exact component={AccountTimeline} content={children} />
+            <WrappedRoute path='/@:acct/tagged/:tagged?' exact component={AccountTimeline} content={children} />
+            <WrappedRoute path={['/@:acct/with_replies', '/accounts/:id/with_replies']} component={AccountTimeline} content={children} componentParams={{ withReplies: true }} />
+            <WrappedRoute path={['/accounts/:id/followers', '/users/:acct/followers', '/@:acct/followers']} component={Followers} content={children} />
+            <WrappedRoute path={['/accounts/:id/following', '/users/:acct/following', '/@:acct/following']} component={Following} content={children} />
+            <WrappedRoute path={['/@:acct/media', '/accounts/:id/media']} component={AccountGallery} content={children} />
+            <WrappedRoute path='/@:acct/:statusId' exact component={Status} content={children} />
+            <WrappedRoute path='/@:acct/:statusId/reblogs' component={Reblogs} content={children} />
+            <WrappedRoute path='/@:acct/:statusId/favourites' component={Favourites} content={children} />
 
-          {/* Legacy routes, cannot be easily factored with other routes because they share a param name */}
-          <WrappedRoute path='/timelines/tag/:id' component={HashtagTimeline} content={children} />
-          <WrappedRoute path='/timelines/list/:id' component={ListTimeline} content={children} />
-          <WrappedRoute path='/statuses/:statusId' exact component={Status} content={children} />
-          <WrappedRoute path='/statuses/:statusId/reblogs' component={Reblogs} content={children} />
-          <WrappedRoute path='/statuses/:statusId/favourites' component={Favourites} content={children} />
+            {/* Legacy routes, cannot be easily factored with other routes because they share a param name */}
+            <WrappedRoute path='/timelines/tag/:id' component={HashtagTimeline} content={children} />
+            <WrappedRoute path='/timelines/list/:id' component={ListTimeline} content={children} />
+            <WrappedRoute path='/statuses/:statusId' exact component={Status} content={children} />
+            <WrappedRoute path='/statuses/:statusId/reblogs' component={Reblogs} content={children} />
+            <WrappedRoute path='/statuses/:statusId/favourites' component={Favourites} content={children} />
 
-          <WrappedRoute path='/follow_requests' component={FollowRequests} content={children} />
-          <WrappedRoute path='/blocks' component={Blocks} content={children} />
-          <WrappedRoute path='/domain_blocks' component={DomainBlocks} content={children} />
-          <WrappedRoute path='/followed_tags' component={FollowedTags} content={children} />
-          <WrappedRoute path='/mutes' component={Mutes} content={children} />
-          <WrappedRoute path='/lists' component={Lists} content={children} />
-
+            <WrappedRoute path='/follow_requests' component={FollowRequests} content={children} />
+            <WrappedRoute path='/blocks' component={Blocks} content={children} />
+            <WrappedRoute path='/domain_blocks' component={DomainBlocks} content={children} />
+            <WrappedRoute path='/followed_tags' component={FollowedTags} content={children} />
+            <WrappedRoute path='/mutes' component={Mutes} content={children} />
+            <WrappedRoute path='/lists' component={Lists} content={children} />
+          </>) : <></>}
           <Route component={BundleColumnError} />
         </WrappedSwitch>
       </ColumnsAreaContainer>
@@ -385,7 +386,7 @@ class UI extends PureComponent {
     }
   };
 
-  componentDidMount () {
+  componentDidMount() {
     const { signedIn } = this.context.identity;
 
     window.addEventListener('focus', this.handleWindowFocus, false);
@@ -399,7 +400,7 @@ class UI extends PureComponent {
     document.addEventListener('dragleave', this.handleDragLeave, false);
     document.addEventListener('dragend', this.handleDragEnd, false);
 
-    if ('serviceWorker' in  navigator) {
+    if ('serviceWorker' in navigator) {
       navigator.serviceWorker.addEventListener('message', this.handleServiceWorkerPostMessage);
     }
 
@@ -417,7 +418,7 @@ class UI extends PureComponent {
     };
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     window.removeEventListener('focus', this.handleWindowFocus);
     window.removeEventListener('blur', this.handleWindowBlur);
     window.removeEventListener('beforeunload', this.handleBeforeUnload);
@@ -465,7 +466,7 @@ class UI extends PureComponent {
   };
 
   handleHotkeyFocusColumn = e => {
-    const index  = (e.key * 1) + 1; // First child is drawer, skip that
+    const index = (e.key * 1) + 1; // First child is drawer, skip that
     const column = this.node.querySelector(`.column:nth-child(${index})`);
     if (!column) return;
     const container = column.querySelector('.scrollable');
@@ -550,7 +551,7 @@ class UI extends PureComponent {
     this.context.router.history.push('/follow_requests');
   };
 
-  render () {
+  render() {
     const { draggingOver } = this.state;
     const { children, isComposing, location, dropdownMenuIsOpen, layout } = this.props;
 

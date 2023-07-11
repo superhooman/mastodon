@@ -82,11 +82,7 @@ class Header extends PureComponent {
           </a>
         );
       } else {
-        signupButton = (
-          <button className='button' onClick={openClosedRegistrationsModal}>
-            <FormattedMessage id='sign_in_banner.create_account' defaultMessage='Create account' />
-          </button>
-        );
+        signupButton = <></>;
       }
 
       content = (
