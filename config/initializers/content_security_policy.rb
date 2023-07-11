@@ -26,7 +26,7 @@ Rails.application.config.content_security_policy do |p|
   p.media_src       :self, :https, :data, assets_host
   p.frame_src       :self, :https
   p.manifest_src    :self, assets_host
-  p.form_action     :self
+  # p.form_action     :self
   p.child_src       :self, :blob, assets_host
   p.worker_src      :self, :blob, assets_host
 
